@@ -323,7 +323,7 @@ app.use('*', (req, res) => {
 async function startServer() {
   await connectToDatabase();
   
-  app.listen(port, () => {
+  app.listen(port, '0.0.0.0', () => {
     console.log(`🚀 Diva Security Backend Server running on port ${port}`);
     console.log(`📊 Health check: http://localhost:${port}/api/health`);
     console.log(`🔗 API Base URL: http://localhost:${port}/api`);
