@@ -4,6 +4,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 require('dotenv').config();
+const path = require('path');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -317,6 +318,14 @@ app.use('*', (req, res) => {
     success: false,
     error: 'Endpoint not found'
   });
+});
+
+// Serve static frontend files
+app.use(express.static(path.join(__dirname)));
+
+// Serve index.html for any non-API route
+app.get(/^\/(?!api).*/, (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // Start server
