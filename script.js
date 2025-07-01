@@ -24,6 +24,9 @@ const messageContainer = document.getElementById('messageContainer');
 const VALID_USERNAME = 'Hamid';
 const VALID_PASSWORD = 'mayaeva3911';
 
+// Set your Railway backend URL here
+const API_BASE_URL = 'https://your-app.up.railway.app'; // TODO: Replace with your actual Railway URL
+
 // Initialize application
 document.addEventListener('DOMContentLoaded', function() {
     initializeApp();
@@ -437,7 +440,7 @@ async function saveToDatabase() {
     
     try {
         // Try to save to backend API first
-        const response = await fetch('http://localhost:3000/api/scans', {
+        const response = await fetch(`${API_BASE_URL}/api/scans`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
