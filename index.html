@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diva Security - ID Scanner</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="loginScreen" class="login-container">
+        <div class="login-card">
+            <div class="logo-container">
+                <img src="assests/Diva-logo.png" alt="Logo" class="logo">
+                <p>ID Scanner System</p>
+            </div>
+            <form id="loginForm" class="login-form">
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="username" placeholder="Username" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="login-btn">
+                    <span>Login</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+            <div id="loginError" class="error-message"></div>
+        </div>
+    </div>
+
+    <!-- Main Application -->
+    <div id="mainApp" class="main-app hidden">
+        <!-- Mobile Menu Toggle -->
+        <button id="mobileMenuToggle" class="mobile-menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <img src="assests/Diva-logo.png" alt="Diva Security Logo" class="sidebar-logo">
+                <div class="sidebar-subtitle">ID Scanner System</div>
+            </div>
+            
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#scanning" class="nav-link active" data-section="scanning">
+                        <i class="fas fa-barcode"></i>
+                        <span>ID Scanning</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#history" class="nav-link" data-section="history">
+                        <i class="fas fa-history"></i>
+                        <span>History</span>
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="logout-section">
+                <button id="logoutBtn" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Content Header -->
+            <div class="content-header">
+                <h1 class="content-title">ID Scanning</h1>
+            </div>
+            <!-- Scanner Section -->
+            <section class="scanner-section">
+                <div class="scanner-card">
+                    <div class="scanner-header">
+                        <i class="fas fa-barcode"></i>
+                        <h3>ID/DL Scanner</h3>
+                    </div>
+                    <div class="scanner-input">
+                        <textarea 
+                            id="scannerInput" 
+                            placeholder="Scan ID or DL barcode here... (Data will be automatically captured when scanner is connected)"
+                            rows="3"
+                        ></textarea>
+                        <button id="clearBtn" class="clear-btn">
+                            <i class="fas fa-trash"></i>
+                            Clear
+                        </button>
+                    </div>
+                    <div class="scanner-status">
+                        <div class="status-indicator">
+                            <i class="fas fa-circle status-dot"></i>
+                            <span id="statusText">Ready to scan</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section id="resultsSection" class="results-section hidden">
+                <div class="results-header">
+                    <h3>Scanned Information</h3>
+                    <div class="document-type">
+                        <span id="documentType" class="type-badge"></span>
+                    </div>
+                </div>
+                
+                <div class="results-grid">
+                    <!-- Personal Information -->
+                    <div class="info-card personal-info">
+                        <div class="card-header">
+                            <i class="fas fa-user"></i>
+                            <h4>Personal Information</h4>
+                        </div>
+                        <div class="card-content">
+                            <div class="info-row">
+                                <span class="label">Full Name:</span>
+                                <span id="fullName" class="value">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Date of Birth:</span>
+                                <span id="dateOfBirth" class="value">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Age:</span>
+                                <span id="age" class="value">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Gender:</span>
+                                <span id="gender" class="value">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Eye Color:</span>
+                                <span id="eyeColor" class="value">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Hair Color:</span>
+                                <span id="hairColor" class="value">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Height:</span>
+                                <span id="height" class="value">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Weight:</span>
+                                <span id="weight" class="value">-</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Document Information -->
+                    <div class="info-card document-info">
+                        <div class="card-header">
+                            <i class="fas fa-id-card"></i>
+                            <h4>Document Information</h4>
+                        </div>
+                        <div class="card-content">
+                            <div class="info-row">
+                                <span class="label">Document Number:</span>
+                                <span id="documentNumber" class="value">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Issue Date:</span>
+                                <span id="issueDate" class="value">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Expiration Date:</span>
+                                <span id="expirationDate" class="value">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Document Class:</span>
+                                <span id="documentClass" class="value">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Restrictions:</span>
+                                <span id="restrictions" class="value">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Endorsements:</span>
+                                <span id="endorsements" class="value">-</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Address Information -->
+                    <div class="info-card address-info">
+                        <div class="card-header">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <h4>Address Information</h4>
+                        </div>
+                        <div class="card-content">
+                            <div class="info-row">
+                                <span class="label">Street Address:</span>
+                                <span id="streetAddress" class="value">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">City:</span>
+                                <span id="city" class="value">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">State:</span>
+                                <span id="state" class="value">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">ZIP Code:</span>
+                                <span id="zipCode" class="value">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Country:</span>
+                                <span id="country" class="value">-</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Information -->
+                    <div class="info-card additional-info">
+                        <div class="card-header">
+                            <i class="fas fa-info-circle"></i>
+                            <h4>Additional Information</h4>
+                        </div>
+                        <div class="card-content">
+                            <div class="info-row">
+                                <span class="label">Organ Donor:</span>
+                                <span id="organDonor" class="value">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Veteran Status:</span>
+                                <span id="veteranStatus" class="value">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Race/Ethnicity:</span>
+                                <span id="race" class="value">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Place of Birth:</span>
+                                <span id="placeOfBirth" class="value">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button id="saveBtn" class="action-btn save-btn">
+                        <i class="fas fa-save"></i>
+                        Save to Database
+                    </button>
+                    <button id="printBtn" class="action-btn print-btn">
+                        <i class="fas fa-print"></i>
+                        Print Report
+                    </button>
+                    <button id="exportBtn" class="action-btn export-btn">
+                        <i class="fas fa-download"></i>
+                        Export Data
+                    </button>
+                </div>
+            </section>
+
+            <!-- History Section -->
+            <section id="historySection" class="history-section hidden">
+                <div class="content-header">
+                    <h1 class="content-title">Scan History</h1>
+                </div>
+                
+                <div class="history-card">
+                    <div class="history-header">
+                        <i class="fas fa-history"></i>
+                        <h3>Recent Scans</h3>
+                    </div>
+                    <div class="history-content">
+                        <div class="history-placeholder">
+                            <i class="fas fa-inbox"></i>
+                            <h4>No scans yet</h4>
+                            <p>Start scanning IDs to see your history here</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Processing...</p>
+        </div>
+    </div>
+
+    <!-- Success/Error Messages -->
+    <div id="messageContainer" class="message-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
